@@ -29,6 +29,11 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    CommonBundle\:
+        public: true
+        resource: '../../src/CommonBundle/*'
+        exclude: '../../src/CommonBundle/{Entity,Repository,Utils}'
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
