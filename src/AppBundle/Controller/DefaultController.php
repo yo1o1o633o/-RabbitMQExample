@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use CommonBundle\Service\RabbitService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
@@ -20,6 +21,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        echo $this->rabbitService->testService();
+        $a = $this->rabbitService->helloPub();
+        return new JsonResponse($a);
     }
 }
