@@ -106,15 +106,16 @@ class RabbitService extends BaseService
         echo ' [*] Waiting for messages. To exit press CTRL+C', "\n";
         $callback = function($msg) {
             echo $msg->body."\n";
-            /**
-             * prefetch_size: 最大未确认消息的字节数
-             * prefetch_count: 最大未确认消息的条数
-             * global: 上述限制的限定对象，glotal=true时表示在当前channel上所有的consumer都生效，否则只对设置了之后新建的consumer生效
-            */
-            $this->channel->basic_qos(null, 1, null);
             // 消息确认,确认后才会处理下一数据
             $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
         };
+        /**
+         * 此限制语句要放在获取消息的前面,才会生效.
+         * prefetch_size: 最大未确认消息的字节数
+         * prefetch_count: 最大未确认消息的条数
+         * global: 上述限制的限定对象，glotal=true时表示在当前channel上所有的consumer都生效，否则只对设置了之后新建的consumer生效
+        */
+        $this->channel->basic_qos(null, 1, null);
         /**
          * 开启ACK, 进行手动确认消息
         */
