@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use CommonBundle\Service\LeetCodeService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class LeetCodeController extends Controller
 {
@@ -18,7 +19,7 @@ class LeetCodeController extends Controller
      * @Route("/leetCode/index")
     */
     public function indexAction() {
-        $res = $this->leetCodeService->onlyOnceNum();
+        $res = $this->leetCodeService->onlyOnceNum([]);
         return new Response($res);
     }
 }
